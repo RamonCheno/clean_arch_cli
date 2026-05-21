@@ -1,0 +1,49 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'package:{{package_name}}/app/domain/usecases/get_all_{{plural}}_usecase.dart';
+import 'package:{{package_name}}/app/modules/{{name}}/controllers/{{name}}_controller.dart';
+
+import '{{name}}_controller_test.mocks.dart';
+
+// Para generar los mocks ejecuta:
+//   dart run build_runner build --delete-conflicting-outputs
+@GenerateMocks([GetAll{{plural_pascal}}UseCase])
+void main() {
+  late {{name.pascalCase()}}Controller controller;
+  late MockGetAll{{plural_pascal}}UseCase mockUsecase;
+
+  setUp(() {
+    Get.testMode = true;
+    mockUsecase = MockGetAll{{plural_pascal}}UseCase();
+    controller = {{name.pascalCase()}}Controller(mockUsecase, Get.find());
+    Get.put(controller);
+  });
+
+  tearDown(() => Get.reset());
+
+  group('{{name.pascalCase()}}Controller', () {
+    test('debe inicializarse correctamente', () {
+      expect(controller, isNotNull);
+    });
+
+    test('fetchAll debe llamar al use case', () async {
+      when(mockUsecase.call()).thenAnswer((_) async => []);
+      await controller.fetchAll();
+      verify(mockUsecase.call()).called(1);
+    });
+
+    test('isLoading debe ser true durante la carga', () async {
+      when(mockUsecase.call()).thenAnswer(
+        (_) async =>
+            Future.delayed(const Duration(milliseconds: 100), () => []),
+      );
+      final future = controller.fetchAll();
+      expect(controller.isLoading.value, isTrue);
+      await future;
+      expect(controller.isLoading.value, isFalse);
+    });
+  });
+}

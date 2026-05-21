@@ -1,0 +1,8 @@
+name: controller
+description: Standalone GetX controller
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Controller name in snake_case
+    prompt: Controller name?

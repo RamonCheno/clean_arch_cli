@@ -1,0 +1,12 @@
+name: feature
+description: Clean Architecture feature (controller + view + binding, no domain/data layers)
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Feature name in snake_case
+    prompt: Feature name?
+  package_name:
+    type: string
+    description: Flutter package name (from pubspec.yaml)
+    prompt: Package name?

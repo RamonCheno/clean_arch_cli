@@ -1,0 +1,12 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  exclude:
+    - test_output/**
+
+linter:
+  rules:
+    - prefer_single_quotes
+    - always_declare_return_types
+    - prefer_final_fields
+    - always_use_package_imports

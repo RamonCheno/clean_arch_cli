@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:{{package_name}}/{{import_path}}/controllers/{{name}}_controller.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Screen (Sub-pantalla)  →  Vista                                        │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué es una Screen?
+//   Una Screen es una pantalla secundaria de la app.
+//   Por ejemplo: detalle de un producto, un formulario, confirmación.
+//
+// ¿Cómo navegar hacia esta Screen?
+//   Get.toNamed(Routes.{{name}}Screen);
+//
+//   Para pasar datos:
+//   Get.toNamed(Routes.{{name}}Screen, arguments: {'id': elId});
+//
+// TODO: Diseña aquí la pantalla "{{name.pascalCase()}}".
+class {{name.pascalCase()}}Screen extends GetView<{{name.pascalCase()}}Controller> {
+  const {{name.pascalCase()}}Screen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('{{name.pascalCase()}}')),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        // TODO: construye aquí el contenido de la Screen "{{name.pascalCase()}}"
+        return const Center(
+          child: Text('{{name.pascalCase()}} Screen'),
+        );
+      }),
+    );
+  }
+}

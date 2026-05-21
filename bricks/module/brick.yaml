@@ -1,0 +1,44 @@
+name: module
+description: Clean Architecture module with domain, data, and presentation layers
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Module name in snake_case
+    prompt: Module name?
+  package_name:
+    type: string
+    description: Flutter package name (from pubspec.yaml)
+    prompt: Package name?
+  plural:
+    type: string
+    description: Plural form of name (computed by hook)
+    default: ""
+  plural_pascal:
+    type: string
+    description: PascalCase plural (computed by hook)
+    default: ""
+  datasource:
+    type: string
+    description: "Data source type: rest | local | both"
+    default: rest
+  storage_lib:
+    type: string
+    description: Storage library (get_storage, hive, shared_prefs, etc.)
+    default: get_storage
+  is_rest:
+    type: boolean
+    description: REST datasource (computed by hook)
+    default: true
+  is_local:
+    type: boolean
+    description: Local datasource (computed by hook)
+    default: false
+  is_local_sync:
+    type: boolean
+    description: Local datasource with synchronous storage lib (computed by hook)
+    default: false
+  is_both:
+    type: boolean
+    description: REST + Local datasource (computed by hook)
+    default: false

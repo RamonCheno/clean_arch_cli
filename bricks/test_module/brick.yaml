@@ -1,0 +1,20 @@
+name: test_module
+description: Unit and widget tests for a Clean Architecture module
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Module name in snake_case
+    prompt: Module name?
+  package_name:
+    type: string
+    description: Flutter package name (from pubspec.yaml)
+    prompt: Package name?
+  plural:
+    type: string
+    description: Plural form (computed by hook)
+    default: ""
+  plural_pascal:
+    type: string
+    description: PascalCase plural (computed by hook)
+    default: ""

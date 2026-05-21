@@ -1,0 +1,44 @@
+import 'package:get/get.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Controller independiente                                               │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué es este Controller?
+//   Un GetxController que puede usarse en cualquier parte de la app.
+//   No está atado a una sola pantalla. Ideal para:
+//   • Estado compartido entre varias pantallas (carrito, sesión)
+//   • Lógica reutilizable (paginación, búsqueda global, tema de la app)
+//
+// ¿Cómo registrarlo para toda la app (global)?
+//   En InitialBinding (core/bindings/initial_binding.dart):
+//     Get.put<{{name.pascalCase()}}Controller>({{name.pascalCase()}}Controller(), permanent: true);
+//
+// ¿Cómo registrarlo solo en una pantalla específica?
+//   En el Binding de esa pantalla:
+//     Get.lazyPut<{{name.pascalCase()}}Controller>(() => {{name.pascalCase()}}Controller());
+//
+// ¿Cómo usarlo desde cualquier widget?
+//   final ctrl = Get.find<{{name.pascalCase()}}Controller>();
+//   Obx(() => Text(ctrl.algunaVariable.value))
+class {{name.pascalCase()}}Controller extends GetxController {
+  // ── Estado observable (agrega tus variables aquí) ──────────────────────
+  final RxBool isLoading = false.obs;
+  final RxString errorMessage = ''.obs;
+
+  // ── Ciclo de vida ───────────────────────────────────────────────────────
+  @override
+  void onInit() {
+    super.onInit();
+    // TODO: inicializa lo que necesita este controller al crearse
+  }
+
+  @override
+  void onClose() {
+    // TODO: cancela timers, streams o suscripciones aquí
+    super.onClose();
+  }
+
+  // ── Métodos públicos (los que llama la Vista u otros controllers) ───────
+  // TODO: agrega tus métodos aquí
+}

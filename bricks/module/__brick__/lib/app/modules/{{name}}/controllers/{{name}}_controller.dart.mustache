@@ -1,0 +1,71 @@
+import 'package:get/get.dart';
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+import 'package:{{package_name}}/app/domain/usecases/get_all_{{plural}}_usecase.dart';
+import 'package:{{package_name}}/app/domain/usecases/get_{{name}}_by_id_usecase.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Presentation  →  Controller                                      │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace el Controller?
+//   Es el "cerebro" de la pantalla. Guarda el estado (¿está cargando?
+//   ¿hubo error? ¿qué datos hay?) y le dice a la Vista qué mostrar.
+//
+// Variables con .obs (observables):
+//   Son variables "mágicas" de GetX. Cuando cambia su valor,
+//   todos los widgets que las escuchan se actualizan solos en pantalla.
+//
+// Ciclo de vida:
+//   1. Constructor  → recibe las dependencias del Binding
+//   2. onInit()     → se ejecuta al crear el controller (carga inicial)
+//   3. onReady()    → se ejecuta cuando la pantalla ya se ve en la app
+//   4. onClose()    → se ejecuta al salir de la pantalla (limpieza)
+class {{name.pascalCase()}}Controller extends GetxController {
+  // ── Dependencias (vienen del Binding, no las instancies aquí) ──────────
+  final GetAll{{plural_pascal}}UseCase _getAll{{plural_pascal}};
+  final Get{{name.pascalCase()}}ByIdUseCase _get{{name.pascalCase()}}ById;
+
+  {{name.pascalCase()}}Controller(
+    this._getAll{{plural_pascal}},
+    this._get{{name.pascalCase()}}ById,
+  );
+
+  // ── Estado observable ───────────────────────────────────────────────────
+  final RxList<{{name.pascalCase()}}Entity> items = <{{name.pascalCase()}}Entity>[].obs;
+  final Rx<{{name.pascalCase()}}Entity?> selected = Rx<{{name.pascalCase()}}Entity?>(null);
+  final RxBool isLoading = false.obs;
+  final RxString errorMessage = ''.obs;
+
+  // ── Ciclo de vida ───────────────────────────────────────────────────────
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAll();
+  }
+
+  // ── Acciones que puede llamar la Vista ──────────────────────────────────
+
+  Future<void> fetchAll() async {
+    isLoading.value = true;
+    errorMessage.value = '';
+    try {
+      items.value = await _getAll{{plural_pascal}}();
+    } catch (e) {
+      errorMessage.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> fetchById(String id) async {
+    isLoading.value = true;
+    errorMessage.value = '';
+    try {
+      selected.value = await _get{{name.pascalCase()}}ById(id);
+    } catch (e) {
+      errorMessage.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}

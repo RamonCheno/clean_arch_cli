@@ -1,0 +1,48 @@
+import 'package:get/get.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Feature  →  Controller                                                 │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace este Controller?
+//   Guarda el estado de la pantalla "{{name.pascalCase()}}" y tiene los métodos
+//   que la Vista puede llamar cuando el usuario hace algo.
+//
+// Variables .obs (observables):
+//   Son variables que la Vista "escucha". Cuando su valor cambia,
+//   los widgets que las usan dentro de Obx() se actualizan solos.
+//
+// Para leer un valor .obs:   variable.value
+// Para cambiar un valor .obs: variable.value = nuevoValor
+//
+// TODO: agrega las variables .obs y métodos que necesite tu pantalla.
+class {{name.pascalCase()}}Controller extends GetxController {
+  // ── Estado de la pantalla ───────────────────────────────────────────────
+  // true mientras se cargan datos, false cuando ya están listos
+  final RxBool isLoading = false.obs;
+
+  // Guarda el mensaje de error si algo sale mal (vacío = sin error)
+  final RxString errorMessage = ''.obs;
+
+  // ── Ciclo de vida ───────────────────────────────────────────────────────
+  @override
+  void onInit() {
+    super.onInit();
+    reload(); // Se ejecuta automáticamente al abrir la pantalla
+  }
+
+  // ── Métodos que puede llamar la Vista ───────────────────────────────────
+
+  // Carga o recarga los datos de la pantalla.
+  Future<void> reload() async {
+    isLoading.value = true;
+    errorMessage.value = '';
+    try {
+      // TODO: escribe aquí qué datos debe cargar esta pantalla
+    } catch (e) {
+      errorMessage.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}

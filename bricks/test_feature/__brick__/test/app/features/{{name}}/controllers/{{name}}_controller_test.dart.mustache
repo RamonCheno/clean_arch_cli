@@ -1,0 +1,24 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+
+import 'package:{{package_name}}/app/features/{{name}}/controllers/{{name}}_controller.dart';
+
+void main() {
+  late {{name.pascalCase()}}Controller controller;
+
+  setUp(() {
+    Get.testMode = true;
+    controller = {{name.pascalCase()}}Controller();
+    Get.put(controller);
+  });
+
+  tearDown(() => Get.reset());
+
+  group('{{name.pascalCase()}}Controller', () {
+    test('debe inicializarse correctamente', () {
+      expect(controller, isNotNull);
+    });
+
+    // TODO: agrega pruebas específicas del feature
+  });
+}

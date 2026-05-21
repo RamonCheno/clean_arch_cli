@@ -1,0 +1,32 @@
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Data  →  Model (Modelo)                                          │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué es un Modelo?
+//   Es la versión "traductora" de tu Entidad.
+//   Sabe hablar el idioma de la API (JSON) y convertirlo
+//   a un objeto que tu app puede usar.
+//
+// ¿Por qué extiende {{name.pascalCase()}}Entity?
+//   Porque el Modelo ES un {{name.pascalCase()}}Entity, solo que con superpoderes
+//   de serialización. Así evitas duplicar propiedades.
+//
+// TODO: Agrega aquí los campos que devuelve tu API.
+class {{name.pascalCase()}}Model extends {{name.pascalCase()}}Entity {
+  const {{name.pascalCase()}}Model({required super.id});
+
+  factory {{name.pascalCase()}}Model.fromJson(Map<String, dynamic> json) {
+    return {{name.pascalCase()}}Model(id: json['id'] as String);
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        // TODO: agrega todos los campos que necesita tu API
+      };
+
+  factory {{name.pascalCase()}}Model.fromEntity({{name.pascalCase()}}Entity entity) {
+    return {{name.pascalCase()}}Model(id: entity.id);
+  }
+}

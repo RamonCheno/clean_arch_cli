@@ -1,0 +1,39 @@
+import 'package:get/get.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Screen  →  Controller                                                  │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace este Controller?
+//   Maneja el estado de la sub-pantalla "{{name.pascalCase()}}".
+//   Solo existe mientras la Screen está visible.
+//
+// ¿Cómo recibir datos al navegar hacia esta pantalla?
+//   Si navegaste con: Get.toNamed(ruta, arguments: {'id': '123'})
+//   Los lees así dentro de onInit():
+//   final args = Get.arguments as Map<String, dynamic>?;
+//   final id = args?['id'] as String?;
+class {{name.pascalCase()}}Controller extends GetxController {
+  // ── Estado de la pantalla ───────────────────────────────────────────────
+  final RxBool isLoading = false.obs;
+  final RxString errorMessage = ''.obs;
+
+  // ── Ciclo de vida ───────────────────────────────────────────────────────
+  @override
+  void onInit() {
+    super.onInit();
+    _init();
+  }
+
+  // ── Métodos ─────────────────────────────────────────────────────────────
+  Future<void> _init() async {
+    isLoading.value = true;
+    try {
+      // TODO: carga los datos de esta pantalla
+    } catch (e) {
+      errorMessage.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}

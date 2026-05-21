@@ -1,0 +1,40 @@
+import 'package:get/get.dart';
+import 'package:{{package_name}}/app/data/providers/{{name}}_provider.dart';
+import 'package:{{package_name}}/app/data/repositories/{{name}}_repository_impl.dart';
+import 'package:{{package_name}}/app/domain/repositories/{{name}}_repository.dart';
+import 'package:{{package_name}}/app/domain/usecases/get_all_{{plural}}_usecase.dart';
+import 'package:{{package_name}}/app/domain/usecases/get_{{name}}_by_id_usecase.dart';
+import 'package:{{package_name}}/app/modules/{{name}}/controllers/{{name}}_controller.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Presentation  →  Binding (Inyección de dependencias)             │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace el Binding?
+//   Es el "armador" del módulo. Antes de que se abra la pantalla,
+//   GetX ejecuta este archivo para construir y conectar todas las piezas:
+//   Provider → RepositoryImpl → UseCases → Controller.
+//
+// Orden importante (de abajo hacia arriba en dependencias):
+//   Primero registra lo que otros necesitan, luego los que dependen de ellos.
+class {{name.pascalCase()}}Binding extends Bindings {
+  @override
+  void dependencies() {
+    // 1. Fuente de datos — los servicios de storage están en InitialBinding
+    Get.lazyPut<{{name.pascalCase()}}Provider>(() => {{name.pascalCase()}}Provider());
+
+    // 2. Repositorio (necesita al Provider para funcionar)
+    Get.lazyPut<{{name.pascalCase()}}Repository>(
+      () => {{name.pascalCase()}}RepositoryImpl(Get.find()),
+    );
+
+    // 3. Casos de uso (necesitan al Repositorio para funcionar)
+    Get.lazyPut(() => GetAll{{plural_pascal}}UseCase(Get.find()));
+    Get.lazyPut(() => Get{{name.pascalCase()}}ByIdUseCase(Get.find()));
+
+    // 4. Controller (necesita los Casos de Uso para funcionar)
+    Get.lazyPut<{{name.pascalCase()}}Controller>(
+      () => {{name.pascalCase()}}Controller(Get.find(), Get.find()),
+    );
+  }
+}

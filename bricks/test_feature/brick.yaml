@@ -1,0 +1,12 @@
+name: test_feature
+description: Unit and widget tests for a Clean Architecture feature
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Feature name in snake_case
+    prompt: Feature name?
+  package_name:
+    type: string
+    description: Flutter package name (from pubspec.yaml)
+    prompt: Package name?

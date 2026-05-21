@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:{{package_name}}/app/modules/{{name}}/controllers/{{name}}_controller.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Presentation  →  View (Vista / Pantalla)                         │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace la View?
+//   Es la pantalla que ve el usuario.
+//   Su único trabajo es mostrar lo que el Controller le dice
+//   y avisar al Controller cuando el usuario hace algo.
+//
+// Reglas simples:
+//   ✅ Muestra datos del controller con `controller.items`
+//   ✅ Llama métodos del controller cuando el usuario interactúa
+//   ❌ NO tiene lógica de negocio
+//   ❌ NO llama a repositorios ni providers directamente
+//
+// ¿Qué es Obx()?
+//   Es un widget "escucha". Todo lo que está dentro de Obx()
+//   se vuelve a dibujar automáticamente cuando cambia
+//   cualquier variable .obs del controller que se lea adentro.
+//
+// TODO: Reemplaza el ListView.builder de ejemplo con tu diseño real.
+class {{name.pascalCase()}}View extends GetView<{{name.pascalCase()}}Controller> {
+  const {{name.pascalCase()}}View({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('{{name.pascalCase()}}')),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.errorMessage.value.isNotEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(controller.errorMessage.value),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: controller.fetchAll,
+                  child: const Text('Reintentar'),
+                ),
+              ],
+            ),
+          );
+        }
+
+        if (controller.items.isEmpty) {
+          return const Center(child: Text('Sin registros'));
+        }
+
+        return ListView.builder(
+          itemCount: controller.items.length,
+          itemBuilder: (_, i) {
+            final item = controller.items[i];
+            // TODO: personaliza este ListTile con los campos de tu Entidad
+            return ListTile(
+              title: Text(item.id),
+              onTap: () => controller.fetchById(item.id),
+            );
+          },
+        );
+      }),
+    );
+  }
+}

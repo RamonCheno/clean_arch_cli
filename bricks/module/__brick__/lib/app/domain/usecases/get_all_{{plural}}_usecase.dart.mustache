@@ -1,0 +1,28 @@
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+import 'package:{{package_name}}/app/domain/repositories/{{name}}_repository.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Domain  →  UseCase (Caso de Uso)                                 │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué es un Caso de Uso?
+//   Es una ACCIÓN específica que puede hacer tu app.
+//   Este caso de uso hace exactamente UNA cosa:
+//   "Obtener todos los {{plural}}".
+//
+// ¿Por qué no llamar al Repository directo desde el Controller?
+//   Podrías hacerlo, pero si pones la lógica aquí:
+//   ✅ Puedes agregar reglas de negocio sin tocar la UI ni los datos.
+//   ✅ Puedes testear esta acción sola, sin levantar pantallas ni servidores.
+//
+// ¿Cómo se llama desde el Controller?
+//   final items = await _getAll{{plural_pascal}}();
+//
+// TODO: Si necesitas filtros o paginación, agrégalos al método call().
+class GetAll{{plural_pascal}}UseCase {
+  final {{name.pascalCase()}}Repository _repository;
+
+  GetAll{{plural_pascal}}UseCase(this._repository);
+
+  Future<List<{{name.pascalCase()}}Entity>> call() => _repository.getAll();
+}

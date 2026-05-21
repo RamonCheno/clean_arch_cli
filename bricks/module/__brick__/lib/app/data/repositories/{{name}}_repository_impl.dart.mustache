@@ -1,0 +1,136 @@
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+import 'package:{{package_name}}/app/domain/repositories/{{name}}_repository.dart';
+import 'package:{{package_name}}/app/data/models/{{name}}_model.dart';
+import 'package:{{package_name}}/app/data/providers/{{name}}_provider.dart';
+{{#is_both}}
+import 'package:get_storage/get_storage.dart';
+{{/is_both}}
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Data  →  RepositoryImpl                                          │
+// └─────────────────────────────────────────────────────────────────────────┘
+class {{name.pascalCase()}}RepositoryImpl implements {{name.pascalCase()}}Repository {
+  final {{name.pascalCase()}}Provider _provider;
+{{#is_both}}
+  final _cache = GetStorage();
+  static const _cacheKey = '{{plural}}_cache';
+{{/is_both}}
+
+  {{name.pascalCase()}}RepositoryImpl(this._provider);
+
+{{#is_rest}}
+  @override
+  Future<List<{{name.pascalCase()}}Entity>> getAll() async {
+    final data = await _provider.fetchAll();
+    return data.map((json) => {{name.pascalCase()}}Model.fromJson(json)).toList();
+  }
+
+  @override
+  Future<{{name.pascalCase()}}Entity?> getById(String id) async {
+    final json = await _provider.fetchById(id);
+    if (json == null) return null;
+    return {{name.pascalCase()}}Model.fromJson(json);
+  }
+
+  @override
+  Future<void> save({{name.pascalCase()}}Entity entity) async {
+    final model = {{name.pascalCase()}}Model.fromEntity(entity);
+    await _provider.save(model.toJson());
+  }
+
+  @override
+  Future<void> delete(String id) => _provider.delete(id);
+{{/is_rest}}
+{{#is_local_sync}}
+  @override
+  Future<List<{{name.pascalCase()}}Entity>> getAll() async {
+    final data = _provider.fetchAll();
+    return data.map((json) => {{name.pascalCase()}}Model.fromJson(json)).toList();
+  }
+
+  @override
+  Future<{{name.pascalCase()}}Entity?> getById(String id) async {
+    final json = _provider.fetchById(id);
+    if (json == null) return null;
+    return {{name.pascalCase()}}Model.fromJson(json);
+  }
+
+  @override
+  Future<void> save({{name.pascalCase()}}Entity entity) async {
+    _provider.save({{name.pascalCase()}}Model.fromEntity(entity).toJson());
+  }
+
+  @override
+  Future<void> delete(String id) async => _provider.delete(id);
+{{/is_local_sync}}
+{{#is_local}}
+{{^is_local_sync}}
+  @override
+  Future<List<{{name.pascalCase()}}Entity>> getAll() async {
+    final data = await _provider.fetchAll();
+    return data.map((json) => {{name.pascalCase()}}Model.fromJson(json)).toList();
+  }
+
+  @override
+  Future<{{name.pascalCase()}}Entity?> getById(String id) async {
+    final json = await _provider.fetchById(id);
+    if (json == null) return null;
+    return {{name.pascalCase()}}Model.fromJson(json);
+  }
+
+  @override
+  Future<void> save({{name.pascalCase()}}Entity entity) async {
+    final model = {{name.pascalCase()}}Model.fromEntity(entity);
+    await _provider.save(model.toJson());
+  }
+
+  @override
+  Future<void> delete(String id) => _provider.delete(id);
+{{/is_local_sync}}
+{{/is_local}}
+{{#is_both}}
+  @override
+  Future<List<{{name.pascalCase()}}Entity>> getAll() async {
+    try {
+      final data = await _provider.fetchAll();
+      _cache.write(_cacheKey, data);
+      return data.map((json) => {{name.pascalCase()}}Model.fromJson(json)).toList();
+    } catch (_) {
+      final cached = _cache.read<List>(_cacheKey) ?? [];
+      return cached
+          .cast<Map<String, dynamic>>()
+          .map((json) => {{name.pascalCase()}}Model.fromJson(json))
+          .toList();
+    }
+  }
+
+  @override
+  Future<{{name.pascalCase()}}Entity?> getById(String id) async {
+    try {
+      final json = await _provider.fetchById(id);
+      if (json == null) return null;
+      return {{name.pascalCase()}}Model.fromJson(json);
+    } catch (_) {
+      final cached = _cache.read<List>(_cacheKey) ?? [];
+      final match = cached
+          .cast<Map<String, dynamic>>()
+          .where((e) => e['id'] == id)
+          .firstOrNull;
+      return match != null ? {{name.pascalCase()}}Model.fromJson(match) : null;
+    }
+  }
+
+  @override
+  Future<void> save({{name.pascalCase()}}Entity entity) async {
+    final model = {{name.pascalCase()}}Model.fromEntity(entity);
+    await _provider.save(model.toJson());
+    _cache.remove(_cacheKey);
+  }
+
+  @override
+  Future<void> delete(String id) async {
+    await _provider.delete(id);
+    _cache.remove(_cacheKey);
+  }
+{{/is_both}}
+}

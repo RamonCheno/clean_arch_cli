@@ -1,0 +1,36 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+import 'package:{{package_name}}/app/domain/repositories/{{name}}_repository.dart';
+import 'package:{{package_name}}/app/domain/usecases/get_all_{{plural}}_usecase.dart';
+
+import 'get_all_{{plural}}_usecase_test.mocks.dart';
+
+// Para generar los mocks ejecuta:
+//   dart run build_runner build --delete-conflicting-outputs
+@GenerateMocks([{{name.pascalCase()}}Repository])
+void main() {
+  late GetAll{{plural_pascal}}UseCase usecase;
+  late Mock{{name.pascalCase()}}Repository mockRepository;
+
+  setUp(() {
+    mockRepository = Mock{{name.pascalCase()}}Repository();
+    usecase = GetAll{{plural_pascal}}UseCase(mockRepository);
+  });
+
+  group('GetAll{{plural_pascal}}UseCase', () {
+    test('debe obtener la lista del repositorio', () async {
+      when(mockRepository.getAll()).thenAnswer((_) async => []);
+      final result = await usecase.call();
+      expect(result, isA<List<{{name.pascalCase()}}Entity>>());
+      verify(mockRepository.getAll()).called(1);
+    });
+
+    test('debe propagar la excepción si el repositorio falla', () async {
+      when(mockRepository.getAll()).thenThrow(Exception('Error de servidor'));
+      expect(() => usecase.call(), throwsException);
+    });
+  });
+}

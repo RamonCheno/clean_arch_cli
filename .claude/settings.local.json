@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dart analyze *)",
+      "Bash(dart run *)",
+      "Bash(Remove-Item -Recurse -Force \"D:\\\\Users\\\\RamonCheno\\\\Escritorio\\\\Proyectos_Pacificsoft\\\\app Moviles\\\\clean_arch_cli\\\\lib\\\\app\" -ErrorAction SilentlyContinue)",
+      "PowerShell(\"cleaned\")",
+      "Bash(dart compile *)",
+      "Bash(dir \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\clean_arch_cli\\\\lib\\\\src\\\\templates\" /b)",
+      "PowerShell(cd \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\very_good_cli\\\\very_good_cli-main\"; Get-ChildItem -Path \".\\\\lib\" -Recurse -Depth 2 | Where-Object {$_.PSIsContainer} | ForEach-Object {$_.FullName.Replace\\(\\(Get-Location\\).Path + '\\\\', ''\\)} | Sort-Object)",
+      "Bash(xargs grep -l \"template\\\\|import\")",
+      "PowerShell([System.Text.Encoding]::UTF8.GetString\\([System.Convert]::FromBase64String\\(\"aW1wb3J0ICdwYWNrYWdlOmFyZ3MvYXJncy5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOmFyZ3MvY29tbWFuZF9ydW5uZXIuZGFydCc7CmltcG9ydCAncGFja2FnZTpjbGlfY29tcGxldGlvbi9jbGlfY29tcGxldGlvbi5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOm1hc29uX2xvZ2dlci9tYXNvbl9sb2dnZXIuZGFydCc7CmltcG9ydCAncGFja2FnZTpwdWJfdXBkYXRlci9wdWJfdXBkYXRlci5kYXJ0JzsKaW1wb3J0ICdwYWNrYWdlOnt7cHJvamVjdF9uYW1lLnNuYWtlQ2FzZSgpfX0vc3JjL2NvbW1hbmRzL2NvbW1hbmRzLmRhcnQnOwppbXBvcnQgJ3BhY2thZ2U6e3twcm9qZWN0X25hbWUuc25ha2VDYXNlKCl9fS9zcmMvdmVyc2lvbi5kYXJ0Jzs=\"\\)\\))",
+      "Bash(dart pub *)",
+      "Bash(mason --version)",
+      "PowerShell(mason --version 2>&1)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\clean_arch_cli\" -Recurse -Force)",
+      "Bash(Select-Object -First 50)",
+      "Bash(Format-Table FullName)",
+      "Bash(find \"D:\\\\\\\\Users\\\\\\\\RamonCheno\\\\\\\\Documentos\\\\\\\\Proyectos\\\\\\\\Aplicaciones Movil Personal\\\\\\\\clean_arch_cli\" -type f -name \"*.dart\" -o -name \"pubspec.yaml\")",
+      "Bash(dart test *)",
+      "Bash(find \"D:/Users/RamonCheno/Documentos/Proyectos/Aplicaciones Movil Personal/miplanner/lib\" -type f | sort)",
+      "Bash(find \"D:/Users/RamonCheno/Documentos/Proyectos/Aplicaciones Movil Personal/miplanner/test\" -type f 2>/dev/null | sort || echo \"test/ does not exist\")",
+      "WebFetch(domain:pub.dev)",
+      "Bash([ -d \"D:/Users/RamonCheno/Documentos/Proyectos/Aplicaciones Movil Personal/miplanner/$dir\" ])",
+      "Bash(findstr /i \"error warning project_templates\")",
+      "Bash(bin\\\\cleanarch.exe create *)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\miplanner\" -Recurse -Force)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(ls \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\\")",
+      "PowerShell(\\(Get-Content \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\clean_arch_cli\\\\lib\\\\src\\\\templates\\\\module_templates.dart\" | Measure-Object -Line\\).Lines)",
+      "Bash(findstr /i \"error warning\")",
+      "Bash(\"bin/cleanarch.exe\" help *)",
+      "Bash(\"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\clean_arch_cli\\\\bin\\\\cleanarch.exe\" create screen detail_task --module tasks --path \"D:\\\\Users\\\\RamonCheno\\\\Documentos\\\\Proyectos\\\\Aplicaciones Movil Personal\\\\miplanner\")",
+      "WebFetch(domain:docs.brickhub.dev)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:cli.vgv.dev)"
+    ]
+  }
+}

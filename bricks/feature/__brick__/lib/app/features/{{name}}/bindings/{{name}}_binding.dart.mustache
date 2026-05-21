@@ -1,0 +1,21 @@
+import 'package:get/get.dart';
+import 'package:{{package_name}}/app/features/{{name}}/controllers/{{name}}_controller.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Feature  →  Binding (Registro de dependencias)                         │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Para qué sirve el Binding?
+//   Antes de que GetX muestre la pantalla, ejecuta este archivo.
+//   Aquí le dices a GetX: "para esta pantalla, necesitas crear estos objetos".
+//   GetX los crea, los guarda en memoria y los destruye solos al salir.
+//
+// lazyPut significa:
+//   "Registra este objeto PERO no lo crees todavía.
+//    Créalo solo cuando alguien lo pida por primera vez."
+class {{name.pascalCase()}}Binding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<{{name.pascalCase()}}Controller>(() => {{name.pascalCase()}}Controller());
+  }
+}

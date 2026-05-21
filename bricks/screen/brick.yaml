@@ -1,0 +1,24 @@
+name: screen
+description: Screen (sub-page) with controller and binding, optionally nested under a parent module
+version: 0.1.0+1
+vars:
+  name:
+    type: string
+    description: Screen name in snake_case
+    prompt: Screen name?
+  package_name:
+    type: string
+    description: Flutter package name (from pubspec.yaml)
+    prompt: Package name?
+  parent_module:
+    type: string
+    description: Parent module name (empty if standalone screen)
+    default: ""
+  has_parent:
+    type: boolean
+    description: Whether this screen belongs to a parent module (computed by hook)
+    default: false
+  import_path:
+    type: string
+    description: Import path relative to lib/ (computed by hook)
+    default: ""

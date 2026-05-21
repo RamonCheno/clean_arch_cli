@@ -1,0 +1,35 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'package:{{package_name}}/app/data/providers/{{name}}_provider.dart';
+import 'package:{{package_name}}/app/data/repositories/{{name}}_repository_impl.dart';
+
+import '{{name}}_repository_impl_test.mocks.dart';
+
+// Para generar los mocks ejecuta:
+//   dart run build_runner build --delete-conflicting-outputs
+@GenerateMocks([{{name.pascalCase()}}Provider])
+void main() {
+  late {{name.pascalCase()}}RepositoryImpl repository;
+  late Mock{{name.pascalCase()}}Provider mockProvider;
+
+  setUp(() {
+    mockProvider = Mock{{name.pascalCase()}}Provider();
+    repository = {{name.pascalCase()}}RepositoryImpl(mockProvider);
+  });
+
+  group('{{name.pascalCase()}}RepositoryImpl', () {
+    test('getAll debe llamar al provider y retornar modelos', () async {
+      when(mockProvider.fetchAll()).thenAnswer((_) async => []);
+      final result = await repository.getAll();
+      expect(result, isEmpty);
+      verify(mockProvider.fetchAll()).called(1);
+    });
+
+    test('getAll debe lanzar excepción si el provider falla', () async {
+      when(mockProvider.fetchAll()).thenThrow(Exception('Network error'));
+      expect(() => repository.getAll(), throwsException);
+    });
+  });
+}

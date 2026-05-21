@@ -1,0 +1,23 @@
+name: clean_arch_cli
+description: CLI tool to generate Clean Architecture + GetX structure for Flutter projects.
+# Author: RamonChenoDev
+version: 1.2.0
+homepage: https://github.com/RamonChenoDev/clean_arch_cli
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  args: ^2.5.0
+  ansi_styles: ^0.3.1
+  path: ^1.9.0
+  cli_completion: ^0.5.0
+  mason: ^0.1.0
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0
+  mason_cli: ^0.1.0
+
+executables:
+  cleanarch: main

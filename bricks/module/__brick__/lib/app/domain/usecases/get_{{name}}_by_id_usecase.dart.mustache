@@ -1,0 +1,24 @@
+import 'package:{{package_name}}/app/domain/entities/{{name}}_entity.dart';
+import 'package:{{package_name}}/app/domain/repositories/{{name}}_repository.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  CAPA: Domain  →  UseCase (Caso de Uso)                                 │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// ¿Qué hace este Caso de Uso?
+//   Una sola cosa: buscar un {{name}} por su id.
+//   Lo usa la pantalla de detalle cuando el usuario toca un elemento.
+//
+// ¿Devuelve null?
+//   Sí. Si el {{name}} no existe, devuelve null.
+//   El Controller decide qué mostrar en ese caso.
+//
+// ¿Cómo se llama desde el Controller?
+//   final item = await _get{{name.pascalCase()}}ById(elIdQueQuieres);
+class Get{{name.pascalCase()}}ByIdUseCase {
+  final {{name.pascalCase()}}Repository _repository;
+
+  Get{{name.pascalCase()}}ByIdUseCase(this._repository);
+
+  Future<{{name.pascalCase()}}Entity?> call(String id) => _repository.getById(id);
+}

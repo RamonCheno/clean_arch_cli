@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:mockito/annotations.dart';
+
+import 'package:{{package_name}}/app/modules/{{name}}/controllers/{{name}}_controller.dart';
+import 'package:{{package_name}}/app/modules/{{name}}/views/{{name}}_view.dart';
+
+import '{{name}}_view_test.mocks.dart';
+
+// Para generar los mocks ejecuta:
+//   dart run build_runner build --delete-conflicting-outputs
+@GenerateMocks([{{name.pascalCase()}}Controller])
+void main() {
+  setUp(() => Get.testMode = true);
+  tearDown(() => Get.reset());
+
+  group('{{name.pascalCase()}}View', () {
+    testWidgets('debe renderizarse sin errores', (tester) async {
+      Get.put({{name.pascalCase()}}Controller(Get.find(), Get.find()));
+      await tester.pumpWidget(
+        const GetMaterialApp(home: {{name.pascalCase()}}View()),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType({{name.pascalCase()}}View), findsOneWidget);
+    });
+  });
+}

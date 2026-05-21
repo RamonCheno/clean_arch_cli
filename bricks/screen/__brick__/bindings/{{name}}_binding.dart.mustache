@@ -1,0 +1,15 @@
+import 'package:get/get.dart';
+import 'package:{{package_name}}/{{import_path}}/controllers/{{name}}_controller.dart';
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  Screen  →  Binding (Registro de dependencias)                          │
+// └─────────────────────────────────────────────────────────────────────────┘
+//
+// Le dice a GetX qué objetos debe crear antes de mostrar esta pantalla.
+// GetX los crea automáticamente al navegar aquí y los destruye al salir.
+class {{name.pascalCase()}}Binding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<{{name.pascalCase()}}Controller>(() => {{name.pascalCase()}}Controller());
+  }
+}
